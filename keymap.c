@@ -2,11 +2,10 @@
 
 #define QWERTY 0 // Base qwerty
 
+// MacOS Home and End (Modify iTerm Key: LCMD + LEFT -> Hex Code 001 and LCMD + RIGHT -> Hex Code 005)
+#define MAC_HOME LCMD(KC_LEFT)
+#define MAC_END  LCMD(KC_RGHT)
 
-enum custom_keycodes {
-    MY_HOME = SAFE_RANGE,
-		MY_END,
-};
 
 /****************************************************************************************************
 *
@@ -44,29 +43,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,
               KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
                                                       KC_LCMD,  KC_LALT,                                               KC_RCTL,  KC_RCMD,
-                                                                MY_HOME,                                               KC_PGUP,
-                                            KC_BSPC,  KC_DEL,   MY_END,                                                KC_PGDN,  KC_ENTER, KC_SPC
+                                                                MAC_HOME,                                              KC_PGUP,
+                                            KC_BSPC,  KC_DEL,   MAC_END,                                               KC_PGDN,  KC_ENTER, KC_SPC
   )
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-    case MY_HOME:
-        if (record->event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(50) SS_TAP(X_LEFT) SS_UP(X_LCMD));
-        } else {
-            // when keycode MY_HOME is released
-        }
-        break;
-    case MY_END:
-        if (record->event.pressed) {
-            SEND_STRING(SS_DOWN(X_LCMD) SS_DELAY(50) SS_TAP(X_RIGHT) SS_UP(X_LCMD));
-        } else {
-            // when keycode MY_END is released
-        }
-        break;
-    }
-    return true;
-};
 
