@@ -3,3 +3,6 @@
 
 // Activate Caps Word on Left Shift + Right Shift.
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// Display Caps Lock status with the LED.
+// #define CAPS_LOCK_STATUS
