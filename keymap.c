@@ -7,9 +7,6 @@
 #define MAC_HOME LCMD(KC_LEFT)
 #define MAC_END  LCMD(KC_RGHT)
 
-// Mod-tap keys for Left/Right Shift
-// #define KC_LSBO LCMD_T(KC_LCBR)  // LCMD (tap) -> KC_LCBR; LCMD (held) -> KC_LCMD;
-// #define KC_LSBC RCMD_T(KC_RBRC)  // RCMD (tap) -> KC_RBRC; RCMD (held) -> KC_RCMD;
 
 /****************************************************************************************************
 *
