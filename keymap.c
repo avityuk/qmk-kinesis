@@ -7,6 +7,9 @@
 #define MAC_HOME LCMD(KC_LEFT)
 #define MAC_END  LCMD(KC_RGHT)
 
+// Command keys send curly braces on tap and act as Command on hold.
+#define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap.
+#define KC_RCBC RCMD_T(KC_RCBR)  //  RCMD on hold, KC_RCBR on tap.
 
 /****************************************************************************************************
 *
@@ -43,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CAPSWRD,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                                                                      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
     KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
               KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
-                                                      KC_LCMD,  KC_LALT,                                               KC_RCTL,  KC_RCMD,
+                                                      KC_LCBO,  KC_LALT,                                               KC_RCTL,  KC_RCBC,
                                                                 MAC_HOME,                                              KC_PGUP,
                                             KC_BSPC,  KC_DEL,   MAC_END,                                               KC_PGDN,  KC_ENTER, KC_SPC
   )
@@ -51,3 +54,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+    case KC_LCBO:  // LCMD on hold, KC_LCBR on tap.
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_LCBR); // Send KC_LCBR on tap
+        return false;        // Return false to ignore further processing of key
+      }
+      break;
+    case KC_RCBC:  //  RCMD on hold, KC_RCBR on tap.
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_RCBR); // Send KC_RCBR on tap
+        return false;        // Return false to ignore further processing of key
+      }
+      break;
+	}
+
+	return true;  // Return true to allow further processing of key.
+}
