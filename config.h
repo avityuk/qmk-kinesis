@@ -6,3 +6,6 @@
 
 // Enable per key tapping term configuration.
 #define TAPPING_TERM_PER_KEY
+
+// Disable Auto Shift for alpha keys.
+#define NO_AUTO_SHIFT_ALPHA
