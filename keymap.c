@@ -9,8 +9,8 @@
 
 // Shift keys send parentheses on tap and act as Shift on hold.
 // Note that these match the definition from the built-in Space Caded, which we have disabled here.
-#define KC_LSPO LSFT_T(KC_LPRN)  //  LSFT on hold, KC_LPRN on tap
-#define KC_RSPC RSFT_T(KC_RPRN)  //  RSFT on hold, KC_RPRN on tap
+// #define KC_LSPO LSFT_T(KC_LPRN)  //  LSFT on hold, KC_LPRN on tap
+// #define KC_RSPC RSFT_T(KC_RPRN)  //  RSFT on hold, KC_RPRN on tap
 
 // Command keys send curly braces on tap and act as Command on hold.
 #define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap
@@ -73,18 +73,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       break;
-    case KC_LSPO: //  LSFT on hold, KC_LPRN on tap
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_LPRN);
-        return false;
-      }
-      break;
-    case KC_RSPC: //  LSFT on hold, KC_RPRN on tap
-      if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_RPRN);
-        return false;
-      }
-      break;
+    // case KC_LSPO: //  LSFT on hold, KC_LPRN on tap
+    //   if (record->tap.count && record->event.pressed) {
+    //     tap_code16(KC_LPRN);
+    //     return false;
+    //   }
+    //   break;
+    // case KC_RSPC: //  LSFT on hold, KC_RPRN on tap
+    //   if (record->tap.count && record->event.pressed) {
+    //     tap_code16(KC_RPRN);
+    //     return false;
+    //   }
+    //   break;
 	}
 
 	return true;  // Return true to allow further processing of key.
@@ -94,8 +94,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_LCBO:
     case KC_RCBC:
-    case KC_LSPO:
-    case KC_RSPC:
+    // case KC_LSPO:
+    // case KC_RSPC:
       return 150;  // The default is 200ms.
     default:
       return TAPPING_TERM;
