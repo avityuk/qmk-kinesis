@@ -8,5 +8,4 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 CAPS_WORD_ENABLE = yes      # Enable Caps Word.
-# TODO: disable Space Cadet once there is better replacement.
-# SPACE_CADET_ENABLE = no     # Disable built-in Space Cadet.
+SPACE_CADET_ENABLE = no     # Disable built-in Space Cade.

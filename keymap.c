@@ -7,9 +7,14 @@
 #define MAC_HOME LCMD(KC_LEFT)
 #define MAC_END  LCMD(KC_RGHT)
 
+// Shift keys send parentheses on tap and act as Shift on hold.
+// Note that these match the definition from the built-in Space Caded, which we have disabled here.
+#define KC_LSPO LSFT_T(KC_LPRN)  //  LSFT on hold, KC_LPRN on tap
+#define KC_RSPC RSFT_T(KC_RPRN)  //  RSFT on hold, KC_RPRN on tap
+
 // Command keys send curly braces on tap and act as Command on hold.
-#define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap.
-#define KC_RCBC RCMD_T(KC_RCBR)  //  RCMD on hold, KC_RCBR on tap.
+#define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap
+#define KC_RCBC RCMD_T(KC_RCBR)  //  RCMD on hold, KC_RCBR on tap
 
 /****************************************************************************************************
 *
@@ -29,7 +34,7 @@
 *          | `~   | INS  | Left | Right|                                         | Up   | Down |  [{  |  ]}  |
 *          `---------------------------'                                         `---------------------------'
 *                                        ,-------------.         ,-------------.
-*                                        | Cmd  | Alt  |         | Ctrl | Cmd  |
+*                                        | Cmd {| Alt  |         | Ctrl | Cmd }|
 *                                 ,------|------|------|         |------+------+------.
 *                                 |      |      | Home |         | PgUp |      |      |
 *                                 | BkSp | Del  |------|         |------|Return| Space|
@@ -58,17 +63,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
     case KC_LCBO:  // LCMD on hold, KC_LCBR on tap.
       if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_LCBR); // Send KC_LCBR on tap
-        return false;        // Return false to ignore further processing of key
+        tap_code16(KC_LCBR);
+        return false;
       }
       break;
     case KC_RCBC:  //  RCMD on hold, KC_RCBR on tap.
       if (record->tap.count && record->event.pressed) {
-        tap_code16(KC_RCBR); // Send KC_RCBR on tap
-        return false;        // Return false to ignore further processing of key
+        tap_code16(KC_RCBR);
+        return false;
+      }
+      break;
+    case KC_LSPO: //  LSFT on hold, KC_LPRN on tap
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_LPRN);
+        return false;
+      }
+      break;
+    case KC_RSPC: //  LSFT on hold, KC_RPRN on tap
+      if (record->tap.count && record->event.pressed) {
+        tap_code16(KC_RPRN);
+        return false;
       }
       break;
 	}
 
 	return true;  // Return true to allow further processing of key.
+}
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_LCBO:
+    case KC_RCBC:
+    case KC_LSPO:
+    case KC_RSPC:
+      return 150;  // The default is 200ms.
+    default:
+      return TAPPING_TERM;
+  }
 }

@@ -4,3 +4,5 @@
 // Activate Caps Word on Left Shift + Right Shift.
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
+// Enable per key tapping term configuration.
+#define TAPPING_TERM_PER_KEY
