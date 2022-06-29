@@ -9,3 +9,6 @@
 
 // Disable Auto Shift for alpha keys.
 #define NO_AUTO_SHIFT_ALPHA
+
+// Enable Mod Tap Interrupt
+#undef IGNORE_MOD_TAP_INTERRUPT

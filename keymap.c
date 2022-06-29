@@ -96,7 +96,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case KC_RCBC:
     // case KC_LSPO:
     // case KC_RSPC:
-      return 125;  // The default is 200ms.
+      return 200;  // The default is 200ms.
     default:
       return TAPPING_TERM;
   }
