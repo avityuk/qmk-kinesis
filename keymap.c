@@ -90,6 +90,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	return true;  // Return true to allow further processing of key.
 }
 
+// Returns per key term.
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_LCBO:
@@ -100,4 +101,29 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     default:
       return TAPPING_TERM;
   }
+}
+
+void set_led(int pin, bool active) {
+  writePin(pin, active ? 1 : 0);
+}
+
+void set_led_1(bool active) {
+  set_led(LED_1_PIN, active);
+}
+
+void set_led_2(bool active) {
+  set_led(LED_1_PIN, active);
+}
+
+void set_led_3(bool active) {
+  set_led(LED_1_PIN, active);
+}
+
+void set_led_4(bool active) {
+  set_led(LED_1_PIN, active);
+}
+
+// User callback for Caps Word mode.
+void caps_word_set_user(bool active) {
+  set_led_1(active);
 }
