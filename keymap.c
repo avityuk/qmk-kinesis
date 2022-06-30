@@ -95,8 +95,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_LCBO:
     case KC_RCBC:
-    // case KC_LSPO:
-    // case KC_RSPC:
+    case KC_LSPO:
+    case KC_RSPC:
       return 125;  // The default is 200ms.
     default:
       return TAPPING_TERM;
