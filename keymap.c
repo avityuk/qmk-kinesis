@@ -27,7 +27,7 @@
 * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
 * | Tab    |   Q  |   W  |   E  |   R  |   T  |                           |   Y  |   U  |   I  |   O  |   P  | \|     |
 * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-* |        |   A  |   S  |   D  |   F  |   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"     |
+* | CAPSWRD|   A  |   S  |   D  |   F  |   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"     |
 * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
 * | Shift (|   Z  |   X  |   C  |   V  |   B  |                           |   N  |   M  |  ,.  |  .>  |  /?  | Shift )|
 * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
@@ -104,7 +104,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 void set_led(int pin, bool active) {
-  writePin(pin, active ? 1 : 0);
+  // Write LED_PIN_ON_STATE or inverse of it.
+  writePin(pin, active ? LED_PIN_ON_STATE : !LED_PIN_ON_STATE);
 }
 
 void set_led_1(bool active) {
@@ -112,18 +113,31 @@ void set_led_1(bool active) {
 }
 
 void set_led_2(bool active) {
-  set_led(LED_1_PIN, active);
+  set_led(LED_2_PIN, active);
 }
 
 void set_led_3(bool active) {
-  set_led(LED_1_PIN, active);
+  set_led(LED_3_PIN, active);
 }
 
 void set_led_4(bool active) {
-  set_led(LED_1_PIN, active);
+  set_led(LED_4_PIN, active);
 }
 
 // User callback for Caps Word mode.
 void caps_word_set_user(bool active) {
   set_led_1(active);
 }
+
+// Callback for keyboard initialization.
+void keyboard_pre_init_user() {
+  setPinOutput(LED_1_PIN);
+  set_led(LED_1_PIN, false);
+  setPinOutput(LED_2_PIN);
+  set_led(LED_2_PIN, false);
+  setPinOutput(LED_3_PIN);
+  set_led(LED_3_PIN, false);
+  setPinOutput(LED_4_PIN);
+  set_led(LED_4_PIN, false);
+}
+

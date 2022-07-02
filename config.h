@@ -1,3 +1,5 @@
+#pragma once
+
 // Activate Command with Left Cmd + Right Cmd.
 #define IS_COMMAND() (get_mods() == MOD_MASK_GUI)
 
@@ -14,17 +16,14 @@
 #undef IGNORE_MOD_TAP_INTERRUPT
 
 
-// Use the standard LEDs for custom needs.
-#define LED_1_PIN LED_NUM_LOCK_PIN
-#define LED_2_PIN LED_CAPS_LOCK_PIN
-#define LED_3_PIN LED_SCROLL_LOCK_PIN
-#define LED_4_PIN LED_COMPOSE_PIN
+// // Use the standard LEDs for custom needs.
+#define LED_1_PIN LINE_PIN12
+#define LED_2_PIN LINE_PIN24
+#define LED_3_PIN LINE_PIN25
+#define LED_4_PIN LINE_PIN26
 // Bind the standard LEDs to unused pin.
 #undef LED_NUM_LOCK_PIN
-#define LED_NUM_LOCK_PIN LINE_PIN33
 #undef LED_CAPS_LOCK_PIN
-#define LED_CAPS_LOCK_PIN LINE_PIN33
 #undef LED_SCROLL_LOCK_PIN
-#define LED_SCROLL_LOCK_PIN LINE_PIN33
 #undef LED_COMPOSE_PIN
-#define LED_COMPOSE_PIN LINE_PIN33
+#undef LED_KANA_PIN
