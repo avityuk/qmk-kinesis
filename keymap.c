@@ -100,19 +100,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     case LT(0, KC_X):  // Cmd-X on X hold.
       if (!record->tap.count && record->event.pressed) {
-        tap_code16(LCMD(KC_X)); // Intercept hold function to send Cmd-X
+        tap_code16(LCMD(KC_X));
         return false;
       }
       return true;
     case LT(0, KC_C):  // Cmd-C on C hold.
       if (!record->tap.count && record->event.pressed) {
-        tap_code16(LCMD(KC_C)); // Intercept hold function to send Cmd-C
+        tap_code16(LCMD(KC_C));
         return false;
       }
       return true;
     case LT(0, KC_V):  // Cmd-V on V hold.
       if (!record->tap.count && record->event.pressed) {
-        tap_code16(LCMD(KC_V)); // Intercept hold function to send Cmd-V
+        tap_code16(LCMD(KC_V));
+        return false;
+      }
+      return true;
+    case LT(0, KC_F):  // Cmd-F on F hold.
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(LCMD(KC_F));
         return false;
       }
       return true;
@@ -132,6 +138,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case KC_X:
     case KC_C:
     case KC_V:
+    case KC_F:
       return 500;
     default:
       return TAPPING_TERM;  // The default is 200ms.
