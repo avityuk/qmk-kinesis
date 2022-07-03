@@ -70,13 +70,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(KC_LCBR);
         return false;
       }
-      break;
+      return true;
     case KC_RCBC:  //  RCMD on hold, KC_RCBR on tap.
       if (record->tap.count && record->event.pressed) {
         tap_code16(KC_RCBR);
         return false;
       }
-      break;
+      return true;
     // case KC_LSPO: //  LSFT on hold, KC_LPRN on tap
     //   if (record->tap.count && record->event.pressed) {
     //     tap_code16(KC_LPRN);
@@ -97,6 +97,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LCMD);
         unregister_code(KC_RCMD);
       }
+      return true;
+    case LT(0, KC_X):  // Cmd-X on X hold.
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(LCMD(KC_X)); // Intercept hold function to send Cmd-X
+        return false;
+      }
+      return true;
+    case LT(0, KC_C):  // Cmd-C on C hold.
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(LCMD(KC_C)); // Intercept hold function to send Cmd-C
+        return false;
+      }
+      return true;
+    case LT(0, KC_V):  // Cmd-V on V hold.
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(LCMD(KC_V)); // Intercept hold function to send Cmd-V
+        return false;
+      }
+      return true;
 	}
 
 	return true;  // Return true to allow further processing of key.
@@ -109,9 +128,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case KC_RCBC:
     case KC_LSPO:
     case KC_RSPC:
-      return 125;  // The default is 200ms.
+      return 125;
+    case KC_X:
+    case KC_C:
+    case KC_V:
+      return 500;
     default:
-      return TAPPING_TERM;
+      return TAPPING_TERM;  // The default is 200ms.
   }
 }
 
