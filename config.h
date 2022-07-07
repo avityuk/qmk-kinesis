@@ -16,7 +16,7 @@
 #undef IGNORE_MOD_TAP_INTERRUPT
 
 
-// // Use the standard LEDs for custom needs.
+// Use the standard LEDs for custom needs.
 #define LED_1_PIN LINE_PIN12
 #define LED_2_PIN LINE_PIN24
 #define LED_3_PIN LINE_PIN25
@@ -27,3 +27,13 @@
 #undef LED_SCROLL_LOCK_PIN
 #undef LED_COMPOSE_PIN
 #undef LED_KANA_PIN
+
+
+// Disable Kinesis default Keyboard setting.
+#undef MOUSEKEY_DELAY
+#undef MOUSEKEY_INTERVAL
+#undef MOUSEKEY_MAX_SPEED
+#undef MOUSEKEY_TIME_TO_MAX
+#undef MOUSEKEY_WHEEL_MAX_SPEED
+#undef MOUSEKEY_WHEEL_DELTA
+#undef MOUSEKEY_WHEEL_TIME_TO_MAX
