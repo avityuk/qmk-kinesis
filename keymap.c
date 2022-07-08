@@ -18,6 +18,13 @@
 #define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap
 #define KC_RCBC RCMD_T(KC_RCBR)  //  RCMD on hold, KC_RCBR on tap
 
+// Text editing shortcuts.
+#define KC_CMDX LT(0, KC_X)  // Cmd+X on hold, X on tap.
+#define KC_CMDC LT(0, KC_C)  // Cmd+C on hold, C on tap.
+#define KC_CMDV LT(0, KC_V)  // Cmd+V on hold, V on tap.
+#define KC_CMDF LT(0, KC_F)  // Cmd+F on hold, F on tap.
+#define KC_CMDS LT(0, KC_S)  // Cmd+S on hold, S on tap.
+
 enum custom_keycodes {
   COMMAND = SAFE_RANGE,  // Command keycode.
 };
@@ -35,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|
   * | Tab    |   Q  |   W  |   E  |   R  |   T  |                           |   Y  |   U  |   I  |   O  |   P  | \|     |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * |Toggle 1|   A  |   S  |   D  |   F  |   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"     |
+  * |Toggle 1|   A  |(Cmd)S|   D  |(Cmd)F|   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"     |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * | Shift (|   Z  |   X  |   C  |   V  |   B  |                           |   N  |   M  |  ,.  |  .>  |  /?  | Shift )|
+  * | Shift (|   Z  |(Cmd)X|(Cmd)C|(Cmd)V|   B  |                           |   N  |   M  |  ,.  |  .>  |  /?  | Shift )|
   * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
   *          | `~   | INS  | Left | Right|                                         |  Up  | Down |  [{  |  ]}  |
   *          `---------------------------'                                         `---------------------------'
@@ -53,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,         KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,    COMMAND,
     KC_EQL,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                                                                      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSLS,
-    TG(NAV),  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,                                                                      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-    KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
+    TG(NAV),  KC_A,     KC_CMDS,  KC_D,     KC_CMDF,  KC_G,                                                                      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
+    KC_LSPO,  KC_Z,     KC_CMDX,  KC_CMDC,  KC_CMDV,  KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
               KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
                                                       KC_LCBO,  KC_LALT,                                               KC_RCTL,  KC_RCBC,
                                                                 MAC_HOME,                                              KC_PGUP,
@@ -171,27 +178,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_RCMD);
       }
       return true;
-    case LT(0, KC_X):  // Cmd-X on X hold.
+    case KC_CMDX:  // Cmd+X on hold, X on tap.
       if (!record->tap.count && record->event.pressed) {
         tap_code16(LCMD(KC_X));
         return false;
       }
       return true;
-    case LT(0, KC_C):  // Cmd-C on C hold.
+    case KC_CMDC:  // Cmd+C on hold, C on tap.
       if (!record->tap.count && record->event.pressed) {
         tap_code16(LCMD(KC_C));
         return false;
       }
       return true;
-    case LT(0, KC_V):  // Cmd-V on V hold.
+    case KC_CMDV:  // Cmd+V on hold, V on tap.
       if (!record->tap.count && record->event.pressed) {
         tap_code16(LCMD(KC_V));
         return false;
       }
       return true;
-    case LT(0, KC_F):  // Cmd-F on F hold.
+    case KC_CMDF:  // Cmd+F on hold, F on tap.
       if (!record->tap.count && record->event.pressed) {
         tap_code16(LCMD(KC_F));
+        return false;
+      }
+      return true;
+    case KC_CMDS:  // Cmd+S on hold, S on tap.
+      if (!record->tap.count && record->event.pressed) {
+        tap_code16(LCMD(KC_S));
         return false;
       }
       return true;
@@ -208,10 +221,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case KC_LSPO:
     case KC_RSPC:
       return 125;
-    case KC_X:
-    case KC_C:
-    case KC_V:
-    case KC_F:
+    case KC_CMDX:
+    case KC_CMDC:
+    case KC_CMDV:
+    case KC_CMDF:
+    case KC_CMDS:
       return 500;
     default:
       return TAPPING_TERM;  // The default is 200ms.
