@@ -18,6 +18,10 @@
 #define KC_LCBO LCMD_T(KC_LCBR)  //  LCMD on hold, KC_LCBR on tap
 #define KC_RCBC RCMD_T(KC_RCBR)  //  RCMD on hold, KC_RCBR on tap
 
+// Z/slash send LCTRL/RCTRL on hold.
+#define KC_ZCTL LCTL_T(KC_Z)      //  LCTL on hold, KC_Z on tap
+#define KC_SLCTL RCTL_T(KC_SLSH)  // RCTL on hold, KC_SLSH on tap
+
 // Text editing shortcuts.
 #define KC_CMDX LT(0, KC_X)  // Cmd+X on hold, X on tap.
 #define KC_CMDC LT(0, KC_C)  // Cmd+C on hold, C on tap.
@@ -44,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
   * |Toggle 1|   A  |(Cmd)S|   D  |(Cmd)F|   G  |                           |   H  |   J  |   K  |   L  |  ;:  | '"     |
   * |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|
-  * | Shift (|   Z  |(Cmd)X|(Cmd)C|(Cmd)V|   B  |                           |   N  |   M  |  ,.  |  .>  |  /?  | Shift )|
+  * | Shift (|Z Ctrl|(Cmd)X|(Cmd)C|(Cmd)V|   B  |                           |   N  |   M  |  ,.  |  .>  |/?Ctrl| Shift )|
   * `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'
   *          | `~   | INS  | Left | Right|                                         |  Up  | Down |  [{  |  ]}  |
   *          `---------------------------'                                         `---------------------------'
@@ -61,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQL,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,                                                                      KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,
     KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,                                                                      KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSLS,
     TG(NAV),  KC_A,     KC_CMDS,  KC_D,     KC_CMDF,  KC_G,                                                                      KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-    KC_LSPO,  KC_Z,     KC_CMDX,  KC_CMDC,  KC_CMDV,  KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSPC,
+    KC_LSPO,  KC_ZCTL,  KC_CMDX,  KC_CMDC,  KC_CMDV,  KC_B,                                                                      KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLCTL, KC_RSPC,
               KC_GRV,   KC_INS,   KC_LEFT,  KC_RGHT,                                                                                       KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
                                                       KC_LCBO,  KC_LALT,                                               KC_RCTL,  KC_RCBC,
                                                                 MAC_HOME,                                              KC_PGUP,
@@ -229,6 +233,21 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return 500;
     default:
       return TAPPING_TERM;  // The default is 200ms.
+  }
+}
+
+// Returns per key mod tap interrupt.
+bool get_ignore_mod_tap_interrupt(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_ZCTL:
+    case KC_SLCTL:
+      return true;
+    default:
+#ifdef IGNORE_MOD_TAP_INTERRUPT
+      return true;
+#else
+      return false;
+#endif
   }
 }
 

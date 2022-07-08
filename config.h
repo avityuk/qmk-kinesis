@@ -14,6 +14,7 @@
 
 // Enable Mod Tap Interrupt
 #undef IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT_PER_KEY
 
 
 // Use the standard LEDs for custom needs.
