@@ -8,5 +8,5 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 CAPS_WORD_ENABLE = yes      # Enable Caps Word.
-# SPACE_CADET_ENABLE = no     # Disable built-in Space Cade.
+SPACE_CADET_ENABLE = no     # Disable built-in Space Cade.
 AUTO_SHIFT_ENABLE = yes     # Enable Auto Shift (Shift on hold).
